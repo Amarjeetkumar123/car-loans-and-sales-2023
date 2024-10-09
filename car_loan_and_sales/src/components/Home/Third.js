@@ -12,7 +12,7 @@ import img6 from "../images/bankImages/CLS-LendingPartners-15.jpg";
 import img7 from "../images/bankImages/CLS-LendingPartners-16.jpg";
 
 import ShowBank from "./ShowBank";
-import styles from "./css/Third.module.css"
+// import styles from "./css/Third.module.css"
 
 const Third = () => {
   const responsive = {
@@ -38,7 +38,7 @@ const Third = () => {
   const BankData = [
     {
       id: uuid(),
-      img: img1 ,
+      img: img1,
       name: "Bajaj Finserv",
     },
     {
@@ -73,7 +73,7 @@ const Third = () => {
     },
   ];
   const data = BankData.map((item) => (
-    <ShowBank key={item.id} image={item.img } name={item.name} />
+    <ShowBank key={item.id} image={item.img} name={item.name} />
   ));
 
 
@@ -81,23 +81,23 @@ const Third = () => {
     <div className="mb-5 py-4">
       <div className="bg-danger py-5 mb-5">
         <h2 className="text-white ms-5 mt-5 py-5">Lending Partners</h2>
-          <Carousel
-            showDots={true}
-            responsive={responsive}
-            infinite={true}
-            autoPlay={true}
-            autoPlaySpeed={2000}
-            removeArrowOnDeviceType={[
-              "tablet",
-              "mobile",
-              "desktop",
-              "superLargeDesktop",
-            ]}
-            className="pb-5 mb-5"
-          >
-            {data}
-          </Carousel>
-        </div>
+        <Carousel
+          showDots={true}
+          responsive={responsive}
+          infinite={true}
+          autoPlay={true}
+          autoPlaySpeed={2000}
+          removeArrowOnDeviceType={[
+            "tablet",
+            "mobile",
+            "desktop",
+            "superLargeDesktop",
+          ]}
+          className="pb-5 mb-5"
+        >
+          {data}
+        </Carousel>
+      </div>
     </div>
   );
 };

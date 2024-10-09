@@ -5,9 +5,9 @@ import Home from "./pages/Home";
 import BenefitsForYou from "./pages/BenefitsForYou";
 import Eligibility from "./pages/Eligibility";
 import InterestRates from "./pages/InterestRates";
-import EMIcalculator from "./pages/EMIcalculator";
 
 import ApplyNow from "./pages/ApplyNow";
+import EMICalculator from "./pages/EMICalculator";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
             <Route path="benefits_for_you" element={<BenefitsForYou />} />
             <Route path="eligibility" element={<Eligibility />} />
             <Route path="interestRate" element={<InterestRates />} />
-            <Route path="EMI" element={<EMIcalculator />} />
+            <Route path="EMI" element={<EMICalculator />} />
             <Route path="applyNow" element={<ApplyNow />} />
           </Route>
         </Routes>

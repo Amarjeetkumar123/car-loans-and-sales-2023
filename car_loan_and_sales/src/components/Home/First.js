@@ -30,8 +30,7 @@ const First = () => {
           <div className=" mt-4 fw-semibold">
             <Link
               className="btn btn-light me-3 "
-              to={isAuthenticated ? "/applyNow" : "/"}
-              
+              to={"/applyNow"}
             >
               Get Loan Now
             </Link>

@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from "./images/CLS-Logo-F.png";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = () => {
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  // const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
 
   return (
     <div className="container-fluid">
@@ -13,7 +13,7 @@ const Header = () => {
         <div className="col-9">
           New Car Loan | Used Car Loan | Refinance | Loan Transfer
         </div>
-        <div className="col-3">Give a missed call +91 9686-870-536</div>
+        <div className="col-3">Give a missed call +91 9066783740</div>
       </div>
 
       {/* Navbar */}
@@ -75,22 +75,22 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" aria-current="page" to="#">
+                  <Link className="nav-link" aria-current="page" to="https://www.facebook.com/carloansandsales/" target="_blank" rel="noopener noreferrer">
                     <FaFacebookF />
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" aria-current="page" to="#">
+                  <Link className="nav-link" aria-current="page" to="https://www.instagram.com/carloansandsales/?hl=en" target="_blank" rel="noopener noreferrer">
                     <FaInstagram />
                   </Link>
                 </li>
-                {isAuthenticated && (
+                {/* {isAuthenticated && (
                   <li className="nav-item">
                     <p className="nav-link active my-0">{user.name}</p>
                   </li>
-                )}
+                )} */}
 
-                {isAuthenticated ? (
+                {/* {isAuthenticated ? (
                   <li className="nav-item">
                     <button
                       className=" btn btn-outline-danger ms-2"
@@ -112,7 +112,7 @@ const Header = () => {
                       Log In
                     </button>
                   </li>
-                )}
+                )} */}
               </ul>
             </div>
           </div>

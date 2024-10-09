@@ -1,39 +1,74 @@
 import React from "react";
 import { useEffect } from "react";
 // import { useAuth0 } from "@auth0/auth0-react";
-
+import Swal from 'sweetalert2'
 
 const ApplyNow = () => {
 
   // const { user, isAuthenticated } = useAuth0();
-  
-useEffect(() => {
-  // Example starter JavaScript for disabling form submissions if there are invalid fields
-  (function () {
-    "use strict";
 
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.querySelectorAll(".needs-validation");
+  useEffect(() => {
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+      "use strict";
 
-    // Loop over them and prevent submission
-    Array.prototype.slice.call(forms).forEach(function (form) {
-      form.addEventListener(
-        "submit",
-        function (event) {
-          if (!form.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.querySelectorAll(".needs-validation");
 
-          form.classList.add("was-validated");
-        },
-        false
-      );
-    });
-  })();
-})
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener(
+          "submit",
+          function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
 
+            form.classList.add("was-validated");
+          },
+          false
+        );
+      });
+    })();
+  })
 
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+
+    formData.append("access_key", "85d7a415-b1d5-403d-8958-14a85e89416f");
+    formData.append("subject", "New Submission from Car Loan & Sales Website");
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: json
+    }).then((res) => res.json());
+
+    if (res.success) {
+      Swal.fire({
+        title: "Good job!",
+        text: "You clicked the button!",
+        icon: "success"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload();
+        }
+      });
+    } else {
+      Swal.fire({
+        title: "Oops!",
+        text: "Something went wrong. Please try again.",
+        icon: "error"
+      });
+    }
+  };
   return (
     <div>
       <div className="bg-danger heading d-flex justify-content-center align-items-center">
@@ -43,9 +78,8 @@ useEffect(() => {
       {/* form */}
 
       <form
-        action="https://formspree.io/f/mvonkdao"
+        onSubmit={onSubmit}
         className="row w-75 mx-auto mb-5 needs-validation mt-5"
-        method="POST"
         noValidate
       >
         <div className="row mb-5">
