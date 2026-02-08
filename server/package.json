@@ -1,0 +1,34 @@
+{
+  "name": "car-loans-sales-server",
+  "version": "1.0.0",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "reset-admin": "node src/utils/resetAdmin.js",
+    "seed-leads": "node src/utils/seedLeads.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=23.0.0"
+  },
+  "keywords": ["car-loans", "sales", "api"],
+  "author": "",
+  "license": "ISC",
+  "description": "Backend API for Car Loans & Sales website",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.4",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.22.1",
+    "morgan": "^1.10.1",
+    "postmark": "^4.0.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}

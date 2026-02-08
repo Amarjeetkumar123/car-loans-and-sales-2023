@@ -1,0 +1,77 @@
+# Car Loans & Sales (Full Stack)
+
+This repository contains the **React + Tailwind** frontend (client) and **Node.js + Express** backend (server) for the Car Loans & Sales platform.
+
+## Requirements
+- **Node.js 23** (see .nvmrc / .node-version)
+- MongoDB (local or Atlas)
+- Postmark API key for email
+
+## Project Structure
+```
+car-loans-and-sales-2023/
+├── client/   # React + Tailwind frontend (Vite)
+└── server/   # Node.js + Express backend
+```
+
+## Environment Setup
+
+### Backend (server/.env)
+```
+PORT=5000
+NODE_ENV=development
+MONGODB_URI=mongodb://localhost:27017/car-loans-sales
+JWT_SECRET=change-this-secret
+JWT_EXPIRE=7d
+POSTMARK_API_KEY=your-postmark-key
+ADMIN_EMAIL=admin@carloansandsales.com
+FROM_EMAIL=noreply@carloansandsales.com
+CLIENT_URL=http://localhost:5173
+ADMIN_DEFAULT_EMAIL=admin@carloansandsales.com
+ADMIN_DEFAULT_PASSWORD=admin123
+```
+
+### Frontend (client/.env)
+```
+VITE_API_URL=http://localhost:5000/api
+```
+
+## Install & Run (Development)
+
+### Backend
+```
+cd server
+npm install
+npm run dev
+```
+
+### Frontend
+```
+cd client
+npm install
+npm run dev
+```
+
+## Production Build
+
+### Frontend
+```
+cd client
+npm run build
+npm run preview
+```
+
+### Backend
+```
+cd server
+npm run start
+```
+
+## Deployment (Suggested)
+- **Frontend**: Vercel / Netlify
+- **Backend**: Render / Railway / DigitalOcean
+- **Database**: MongoDB Atlas
+
+### Notes
+- Ensure `CLIENT_URL` in server `.env` matches your deployed frontend URL.
+- Set `VITE_API_URL` to your deployed backend URL.
