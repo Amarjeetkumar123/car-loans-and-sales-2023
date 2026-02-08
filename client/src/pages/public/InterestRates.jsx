@@ -1,28 +1,54 @@
 import PageHeader from '../../components/common/PageHeader';
 import Accordion from '../../components/common/Accordion';
+import { Calculator, Info } from 'lucide-react';
 
 const InterestRates = () => {
   return (
     <div>
-      <PageHeader title="Interest Rates" subtitle="Know the current used car loan interest rates" />
+      <PageHeader
+        title="Interest Rates"
+        subtitle="Know the current used car loan interest rates"
+        className="bg-gradient-to-r from-primary to-red-700"
+      />
 
-      <section className="py-12 px-4">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold">What are the Current Used Car Loan Interest Rates?</h2>
-          <p className="text-gray-600 mt-4">
-            The used car loan interest rates are dependent on various factors including cost of funds, customer
-            credentials, geography, asset, tenor, and discounts offered in the market. Besides that, your credit
-            profile, monthly income, and repayment capacity also play a pivotal role. CLS ensures that you get a
-            transparent and good deal at the time of availing of low-interest-rate used car loans. Our second-hand
-            car loan interest rates are competitive in the market, starting at just 15%.
-          </p>
+      <section className="py-16 px-4">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div className="lg:col-span-7 bg-white rounded-2xl shadow-lg p-8 md:p-12">
+            <h2 className="text-3xl font-bold">What are the Current Used Car Loan Interest Rates?</h2>
+            <p className="text-gray-600 mt-4">
+              The used car loan interest rates are dependent on various factors including cost of funds, customer
+              credentials, geography, asset, tenor, and discounts offered in the market. Besides that, your credit
+              profile, monthly income, and repayment capacity also play a pivotal role. CLS ensures that you get a
+              transparent and good deal at the time of availing of low-interest-rate used car loans. Our second-hand
+              car loan interest rates are competitive in the market, starting at just 15%.
+            </p>
+            <div className="mt-6 flex items-start gap-3 rounded-xl bg-primary/5 p-4 text-primary">
+              <Info />
+              <p className="text-sm text-gray-700">Rates are indicative and may vary based on your profile and lender policies.</p>
+            </div>
+          </div>
+          <div className="lg:col-span-5">
+            <div className="bg-gradient-to-br from-primary to-red-700 text-white rounded-2xl p-8 shadow-xl h-full">
+              <div className="flex items-center gap-2 text-white/90">
+                <Calculator />
+                <p className="text-sm font-semibold uppercase tracking-widest">Quick Insight</p>
+              </div>
+              <h3 className="text-2xl font-bold mt-3">Starting at 15%*</h3>
+              <p className="text-white/90 mt-2">For used car loans based on lender policies and profile.</p>
+              <div className="mt-6 space-y-3">
+                <div className="rounded-xl bg-white/10 p-3">Flexible tenure options</div>
+                <div className="rounded-xl bg-white/10 p-3">Fast approval process</div>
+                <div className="rounded-xl bg-white/10 p-3">Transparent charges</div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="py-12 px-4 bg-gray-50">
+      <section className="py-16 px-4 bg-gray-50">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl font-bold text-center mb-6">Miscellaneous Charges</h2>
-          <div className="overflow-x-auto bg-white rounded-lg shadow">
+          <div className="overflow-x-auto bg-white rounded-2xl shadow-lg">
             <table className="min-w-full">
               <thead className="bg-gray-100">
                 <tr>
@@ -57,14 +83,17 @@ const InterestRates = () => {
             </table>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-10">
             <Accordion
               items={[
                 {
                   question: 'How is Your Used Car Loan Interest Rate Calculated?',
                   answer: (
                     <div>
-                      <p>The mathematical formula for calculating used car loan EMI is:</p>
+                      <div className="flex items-center gap-2 text-primary mb-2">
+                        <Calculator />
+                        <p className="font-semibold">EMI Formula</p>
+                      </div>
                       <p className="font-mono my-3">[P x R x (1+R)^N]/[(1+R)^N-1]</p>
                       <p>where:</p>
                       <ul className="list-disc pl-5 space-y-1">

@@ -64,6 +64,11 @@ export const CONTACT_INFO = {
   email: 'info@carloansandsales.com',
 };
 
+export const SOCIAL_LINKS = {
+  facebook: 'https://facebook.com/carloansandsales',
+  instagram: 'https://instagram.com/carloansandsales',
+};
+
 export const HERO_IMAGE = carHero;
 
 export const LOAN_STEPS = [

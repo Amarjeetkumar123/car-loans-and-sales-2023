@@ -1,9 +1,40 @@
 import { Link } from 'react-router-dom';
-import { CONTACT_INFO } from '../../constants/data';
+import { CONTACT_INFO, SOCIAL_LINKS } from '../../constants/data';
+import { Facebook, Instagram } from 'lucide-react';
 
 const Header = () => {
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
+      <div className="bg-dark text-white text-sm">
+        <div className="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-4">
+            <span>Call: {CONTACT_INFO.phone}</span>
+            <span>Email: {CONTACT_INFO.email}</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="hidden sm:inline">Quick approval • Minimal docs</span>
+            <a
+              href={SOCIAL_LINKS.facebook}
+              target="_blank"
+              rel="noreferrer"
+              className="text-white/90 hover:text-white"
+              aria-label="Facebook"
+            >
+              <Facebook size={16} />
+            </a>
+            <a
+              href={SOCIAL_LINKS.instagram}
+              target="_blank"
+              rel="noreferrer"
+              className="text-white/90 hover:text-white"
+              aria-label="Instagram"
+            >
+              <Instagram size={16} />
+            </a>
+          </div>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <Link to="/" className="text-2xl font-bold text-primary">

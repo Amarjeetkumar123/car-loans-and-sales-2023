@@ -10,6 +10,7 @@ import Textarea from '../../components/common/Textarea';
 import Button from '../../components/common/Button';
 import { LOAN_TYPES, INDIAN_STATES } from '../../constants/data';
 import { createLead } from '../../services/leadService';
+import { FileText, User, MapPin, MessageSquare } from 'lucide-react';
 
 const formSchema = z.object({
   firstName: z.string().min(2, 'First name must be at least 2 characters'),
@@ -50,16 +51,21 @@ const ApplyNow = () => {
 
   return (
     <div>
-      <PageHeader 
-        title="Apply for Car Loan" 
+      <PageHeader
+        title="Apply for Car Loan"
         subtitle="Fill out the form below and we'll get back to you within 24-48 hours"
+        className="bg-gradient-to-r from-primary to-red-700"
       />
 
-      <div className="max-w-4xl mx-auto px-4 py-12">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <div className="max-w-6xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
           {/* Loan Type */}
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Loan Information</h2>
+          <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
+            <div className="flex items-center gap-2 mb-4 text-primary">
+              <FileText />
+              <h2 className="text-xl font-semibold">Loan Information</h2>
+            </div>
             <Select
               label="Type of Loan"
               name="loanType"
@@ -73,8 +79,11 @@ const ApplyNow = () => {
           </div>
 
           {/* Personal Details */}
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Personal Details</h2>
+          <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
+            <div className="flex items-center gap-2 mb-4 text-primary">
+              <User />
+              <h2 className="text-xl font-semibold">Personal Details</h2>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Input
                 label="First Name"
@@ -118,8 +127,11 @@ const ApplyNow = () => {
           </div>
 
           {/* Address Details */}
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Address Details</h2>
+          <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
+            <div className="flex items-center gap-2 mb-4 text-primary">
+              <MapPin />
+              <h2 className="text-xl font-semibold">Address Details</h2>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Input
                 label="City"
@@ -154,8 +166,11 @@ const ApplyNow = () => {
           </div>
 
           {/* Additional Information */}
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Additional Information (Optional)</h2>
+          <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
+            <div className="flex items-center gap-2 mb-4 text-primary">
+              <MessageSquare />
+              <h2 className="text-xl font-semibold">Additional Information (Optional)</h2>
+            </div>
             <Textarea
               label="Message"
               name="message"
@@ -179,6 +194,25 @@ const ApplyNow = () => {
             </Button>
           </div>
         </form>
+        </div>
+
+        <aside className="space-y-6">
+          <div className="rounded-2xl bg-gradient-to-br from-primary to-red-700 text-white p-6 shadow-xl">
+            <h3 className="text-xl font-bold">Why Apply with Us?</h3>
+            <ul className="mt-4 space-y-2 text-white/90 text-sm">
+              <li>• Quick approval in 24–48 hours</li>
+              <li>• Competitive interest rates</li>
+              <li>• Minimal documentation</li>
+              <li>• Dedicated support</li>
+            </ul>
+          </div>
+          <div className="rounded-2xl bg-white p-6 shadow-lg border border-gray-100">
+            <h4 className="font-semibold text-gray-800">Need Help?</h4>
+            <p className="text-sm text-gray-600 mt-2">Our team will assist you at every step.</p>
+            <p className="text-sm text-gray-800 mt-3">Call: +91 9686-870-536</p>
+            <p className="text-sm text-gray-800">Email: info@carloansandsales.com</p>
+          </div>
+        </aside>
       </div>
     </div>
   );
