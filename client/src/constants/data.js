@@ -101,22 +101,81 @@ export const TESTIMONIALS = [
     name: 'Vijaya Kumar KK',
     car: 'Swift ZXI',
     image: customer1,
+    rating: 4.8,
     quote:
       'Good people, good interest. Helped me to buy a Swift ZXI car. The processing time was very fast, there were no extra charges.',
   },
   {
-    name: 'Vijaya Kumar KK',
-    car: 'Swift ZXI',
+    name: 'Rohit Sharma',
+    car: 'Baleno Alpha',
     image: customer2,
+    rating: 4.6,
     quote:
-      'Good people, good interest. Helped me to buy a Swift ZXI car. The processing time was very fast, there were no extra charges.',
+      'Smooth loan approval and very helpful support. Got the best rate for my Baleno purchase.',
   },
   {
-    name: 'Vijaya Kumar KK',
-    car: 'Swift ZXI',
+    name: 'Anita Desai',
+    car: 'City VX',
     image: customer3,
+    rating: 4.5,
     quote:
-      'Good people, good interest. Helped me to buy a Swift ZXI car. The processing time was very fast, there were no extra charges.',
+      'Transparent process and quick turnaround. Highly recommend for used car loans.',
+  },
+  {
+    name: 'Karthik Rao',
+    car: 'i20 Sportz',
+    image: customer1,
+    rating: 4.3,
+    quote:
+      'Clear documentation and fast disbursal. Very satisfied with the service.',
+  },
+  {
+    name: 'Neha Singh',
+    car: 'Creta SX',
+    image: customer2,
+    rating: 4.7,
+    quote:
+      'Great rates and quick follow-ups. The team guided me end to end.',
+  },
+  {
+    name: 'Arjun Mehta',
+    car: 'Venue S',
+    image: customer3,
+    rating: 4.9,
+    quote:
+      'No hidden charges and smooth approval. Excellent experience overall.',
+  },
+  {
+    name: 'Priya Nair',
+    car: 'Brezza ZXI',
+    image: customer1,
+    rating: 4.4,
+    quote:
+      'Very professional staff and easy EMI options. Would choose again.',
+  },
+  {
+    name: 'Sanjay Gupta',
+    car: 'Innova GX',
+    image: customer2,
+    rating: 4.6,
+    quote:
+      'Quick eligibility check and prompt approvals. Highly reliable team.',
+  },
+  {
+    name: 'Meera Joshi',
+    car: 'Amaze VX',
+    image: customer3,
+    rating: 4.5,
+    quote:
+      'Flexible tenure and helpful guidance. Everything was hassle-free.',
+  },
+  {
+    name: 'Vikas Patel',
+    car: 'Nexon XZ+',
+    image: customer1,
+    rating: 5,
+    quote:
+      'Best rates compared to others and quick processing. Great service.',
   },
 ];
 

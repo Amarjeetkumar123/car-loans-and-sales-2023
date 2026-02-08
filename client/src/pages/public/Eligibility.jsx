@@ -1,67 +1,93 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import PageHeader from '../../components/common/PageHeader';
 import Accordion from '../../components/common/Accordion';
 import { BadgeCheck, ClipboardList, FileText, ShieldCheck } from 'lucide-react';
 import usePageMeta from '../../hooks/usePageMeta';
+
+const EligibilityPanel = ({ title, subtitle, items }) => (
+  <div className="space-y-4">
+    <div>
+      <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
+      <p className="text-sm text-gray-600 mt-1">{subtitle}</p>
+    </div>
+    <ul className="space-y-2">
+      {items.map((item) => (
+        <li key={item} className="flex items-start gap-2 text-gray-700">
+          <BadgeCheck className="h-4 w-4 text-primary mt-0.5" />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 
 const tabs = [
   {
     key: 'salaried',
     label: 'Salaried individuals',
     content: (
-      <>
-        <h2 className="text-xl font-semibold mt-4">DOCUMENTS REQUIRED FOR USED CAR LOAN</h2>
-        <h5 className="mt-3">Salaried individuals who are eligible for a Used Car Loan</h5>
-        <ul className="list-disc pl-5 text-gray-600 space-y-2 mt-2">
-          <li>Minimum 21 years of age</li>
-          <li>Maximum 60 years of age at maturity (conditions apply)</li>
-          <li>Minimum net annual salary of Rs 2,40,000 p.a. for certain models and Rs 3,00,000 p.a. for specific models</li>
-          <li>Income eligibility based on latest salary slip/form16/ last 3 months bank statements</li>
-          <li>Minimum 1 year of continuous employment</li>
-        </ul>
-      </>
+      <EligibilityPanel
+        title="Eligibility for Salaried Applicants"
+        subtitle="Basic requirements for salaried individuals."
+        items={[
+          'Minimum 21 years of age',
+          'Maximum 60 years of age at maturity (conditions apply)',
+          'Minimum net annual salary of Rs 2,40,000 p.a. for certain models and Rs 3,00,000 p.a. for specific models',
+          'Income eligibility based on latest salary slip/form16/ last 3 months bank statements',
+          'Minimum 1 year of continuous employment',
+        ]}
+      />
     ),
   },
   {
     key: 'self-employed',
     label: 'Self-employed individuals',
     content: (
-      <>
-        <h2 className="text-xl font-semibold mt-4">DOCUMENTS REQUIRED FOR USED CAR LOAN</h2>
-        <h5 className="mt-3">Self-employed individuals who are eligible for a Used Car Loan</h5>
-        <ul className="list-disc pl-5 text-gray-600 space-y-2 mt-2">
-          <li>Minimum 21 years of age</li>
-          <li>Maximum 65 years of age at maturity</li>
-          <li>Minimum Net Annual Business income of Rs. 2,00,000 p.a. for selected models and Rs. 3,50,000 p.a. for others.</li>
-          <li>Minimum 2 years of employment in the same line of business</li>
-        </ul>
-      </>
+      <EligibilityPanel
+        title="Eligibility for Self-Employed"
+        subtitle="Requirements for professionals and business owners."
+        items={[
+          'Minimum 21 years of age',
+          'Maximum 65 years of age at maturity',
+          'Minimum Net Annual Business income of Rs. 2,00,000 p.a. for selected models and Rs. 3,50,000 p.a. for others.',
+          'Minimum 2 years of employment in the same line of business',
+        ]}
+      />
     ),
   },
   {
     key: 'non-individuals',
     label: 'Self-employed non-individuals',
     content: (
-      <>
-        <h2 className="text-xl font-semibold mt-4">DOCUMENTS REQUIRED FOR USED CAR LOAN</h2>
-        <h5 className="mt-3">Self-employed non-individuals who are eligible for a Used Car Loan</h5>
-        <ul className="list-disc pl-5 text-gray-600 space-y-2 mt-2">
-          <li>Minimum 21 years of age</li>
-          <li>Minimum Net Annual Business income of Rs. 2,50,000 p.a. for selected models and Rs. 3,50,000 p.a. for others</li>
-          <li>Income eligibility based on latest 2 years Income Tax Returns and audited financials of 2 years along with computation of income</li>
-          <li>Minimum 2 years of employment in the same line of business</li>
-        </ul>
-      </>
+      <EligibilityPanel
+        title="Eligibility for Non-Individual Entities"
+        subtitle="Ideal for firms, partnerships, and entities."
+        items={[
+          'Minimum 21 years of age',
+          'Minimum Net Annual Business income of Rs. 2,50,000 p.a. for selected models and Rs. 3,50,000 p.a. for others',
+          'Income eligibility based on latest 2 years Income Tax Returns and audited financials of 2 years along with computation of income',
+          'Minimum 2 years of employment in the same line of business',
+        ]}
+      />
     ),
   },
   {
     key: 'calculator',
     label: 'Car Loan Eligibility Calculator',
     content: (
-      <>
-        <h2 className="text-xl font-semibold mt-4">DOCUMENTS REQUIRED FOR USED CAR LOAN</h2>
-        <h5 className="mt-3">Use the Car Loan eligibility calculator to find out whether you can avail of a pre-owned car loan.</h5>
-      </>
+      <div className="rounded-2xl border border-dashed border-gray-200 bg-gray-50 p-6">
+        <h3 className="text-xl font-semibold text-gray-900">Check Eligibility Instantly</h3>
+        <p className="text-sm text-gray-600 mt-2">
+          Use the calculator to understand your estimated eligibility and monthly EMI.
+        </p>
+        <Link
+          to="/emi-calculator"
+          className="mt-4 inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white shadow hover:bg-red-700"
+        >
+          Open EMI Calculator
+        </Link>
+      </div>
     ),
   },
 ];
@@ -121,48 +147,64 @@ const Eligibility = () => {
       />
 
       <section className="py-16 px-4">
-        <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg p-8 md:p-12">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div className="max-w-5xl mx-auto bg-white rounded-3xl shadow-lg p-8 md:p-12">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div>
-              <h2 className="text-2xl font-bold">Eligibility and Documents Required for Used Car Loan</h2>
-              <p className="text-gray-600 mt-2">Know the basic eligibility and documents before you apply.</p>
+              <h2 className="text-2xl font-bold">Eligibility & Required Documents</h2>
+              <p className="text-gray-600 mt-2">Check the core eligibility criteria before applying.</p>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="rounded-xl bg-primary/10 px-4 py-2 text-primary text-sm font-semibold">Fast Approval</div>
-              <div className="rounded-xl bg-primary/10 px-4 py-2 text-primary text-sm font-semibold">Minimal Docs</div>
+            <div className="flex items-center gap-3">
+              <span className="rounded-full bg-primary/10 px-4 py-2 text-primary text-sm font-semibold">Fast Approval</span>
+              <span className="rounded-full bg-primary/10 px-4 py-2 text-primary text-sm font-semibold">Minimal Docs</span>
             </div>
           </div>
-          <p className="font-semibold underline mt-4">General Eligibility requirements</p>
-          <ul className="list-disc pl-5 text-gray-600 mt-3 space-y-2">
-            <li>Minimum 21 years of age and Maximum 65 years of age at maturity (conditions apply)</li>
-            <li>Income – The income of the applicant must be at least Rs. 20,000 per month (for salaried individuals) and Rs. 2 lakhs per annum (for self-employed individuals).</li>
-            <li>Minimum 1 year of continuous employment</li>
-          </ul>
 
-          <p className="font-semibold underline mt-6">General used car loan documents</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            <div className="flex gap-3 items-start">
-              <div className="mt-1 text-primary"><FileText /></div>
-              <p className="text-gray-600">Photo Identity Proof – Voter’s ID/Passport/PAN/Driving License/Aadhaar</p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+            <div className="rounded-2xl border border-gray-100 bg-gray-50 p-6">
+              <h3 className="text-lg font-semibold">General Eligibility</h3>
+              <ul className="mt-3 space-y-2 text-gray-700">
+                <li className="flex items-start gap-2">
+                  <BadgeCheck className="h-4 w-4 text-primary mt-0.5" />
+                  <span>Minimum 21 years of age and Maximum 65 years of age at maturity (conditions apply)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <BadgeCheck className="h-4 w-4 text-primary mt-0.5" />
+                  <span>Income – at least Rs. 20,000 per month (salaried) and Rs. 2 lakhs per annum (self-employed)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <BadgeCheck className="h-4 w-4 text-primary mt-0.5" />
+                  <span>Minimum 1 year of continuous employment</span>
+                </li>
+              </ul>
             </div>
-            <div className="flex gap-3 items-start">
-              <div className="mt-1 text-primary"><ClipboardList /></div>
-              <p className="text-gray-600">Income proof – latest salary slip/form16/last 3 months bank statements</p>
-            </div>
-            <div className="flex gap-3 items-start">
-              <div className="mt-1 text-primary"><ShieldCheck /></div>
-              <p className="text-gray-600">Address proof – utility bill/bank statement/property documents</p>
-            </div>
-            <div className="flex gap-3 items-start">
-              <div className="mt-1 text-primary"><BadgeCheck /></div>
-              <p className="text-gray-600">Vehicle RC, phone bill, and signature proof</p>
+
+            <div className="rounded-2xl border border-gray-100 bg-white p-6">
+              <h3 className="text-lg font-semibold">Required Documents</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                <div className="flex gap-3 items-start">
+                  <div className="mt-1 text-primary"><FileText className="h-4 w-4" /></div>
+                  <p className="text-gray-600">Photo ID: Voter’s ID/Passport/PAN/Driving License/Aadhaar</p>
+                </div>
+                <div className="flex gap-3 items-start">
+                  <div className="mt-1 text-primary"><ClipboardList className="h-4 w-4" /></div>
+                  <p className="text-gray-600">Income proof: salary slip/form16/last 3 months bank statements</p>
+                </div>
+                <div className="flex gap-3 items-start">
+                  <div className="mt-1 text-primary"><ShieldCheck className="h-4 w-4" /></div>
+                  <p className="text-gray-600">Address proof: utility bill/bank statement/property documents</p>
+                </div>
+                <div className="flex gap-3 items-start">
+                  <div className="mt-1 text-primary"><BadgeCheck className="h-4 w-4" /></div>
+                  <p className="text-gray-600">Vehicle RC, phone bill, and signature proof</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       <section className="py-16 px-4 bg-gray-50">
-        <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-10">
+        <div className="max-w-5xl mx-auto bg-white rounded-3xl shadow-lg p-6 md:p-10">
           <Tabs />
         </div>
       </section>

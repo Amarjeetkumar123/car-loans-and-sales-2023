@@ -28,7 +28,8 @@ const Benefits = () => {
 
       <section className="py-20 px-4">
         <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg p-8 md:p-12">
-          <h2 className="text-3xl font-bold text-center">WHAT IS A USED CAR LOAN?</h2>
+          <p className="text-sm font-semibold uppercase tracking-widest text-primary text-center">Overview</p>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-center text-gray-900">What is a Used Car Loan?</h2>
           <p className="mt-6 text-gray-700 leading-relaxed">
             Opting for a used car loan is a smart, value-for-money purchase. We offer used car loans for a wide
             collection of cars ranging from hatchbacks & SUVs to premium sedans. We extend loans up to 95% loan on
@@ -97,14 +98,14 @@ const Benefits = () => {
               <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <Clock />
               </div>
-              <h5 className="font-semibold">Flexible Tenure</h5>
+              <h5 className="text-lg font-semibold text-gray-900">Flexible Tenure</h5>
               <p className="text-gray-600 text-sm">Easy ways to repay your loan over a period of 60 months.</p>
             </Card>
             <Card className="text-left border border-gray-100 hover:-translate-y-1 transition-transform">
               <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <FileText />
               </div>
-              <h5 className="font-semibold">Quick Processing</h5>
+              <h5 className="text-lg font-semibold text-gray-900">Quick Processing</h5>
               <p className="text-gray-600 text-sm">
                 Online application process with minimal paperwork. We will take care of the rest.
               </p>
@@ -113,14 +114,14 @@ const Benefits = () => {
               <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <Coins />
               </div>
-              <h5 className="font-semibold">Flexi EMI Options</h5>
+              <h5 className="text-lg font-semibold text-gray-900">Flexi EMI Options</h5>
               <p className="text-gray-600 text-sm">Repay your loan according to your convenience.</p>
             </Card>
             <Card className="text-left border border-gray-100 hover:-translate-y-1 transition-transform">
               <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <BadgeCheck />
               </div>
-              <h5 className="font-semibold">Competitive interest rates</h5>
+              <h5 className="text-lg font-semibold text-gray-900">Competitive Interest Rates</h5>
               <p className="text-gray-600 text-sm">We suggest the best interest rates among lenders.</p>
             </Card>
           </div>
@@ -129,34 +130,35 @@ const Benefits = () => {
 
       <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-8">Application Process</h2>
+          <p className="text-sm font-semibold uppercase tracking-widest text-primary text-center">How it works</p>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-center text-gray-900 mb-8">Application Process</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
             <Card className="border border-gray-100">
               <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <Sparkles />
               </div>
-              <h5 className="font-semibold">Online Application</h5>
+              <h5 className="text-lg font-semibold text-gray-900">Online Application</h5>
               <p className="text-gray-600 text-sm">We just need your basic details.</p>
             </Card>
             <Card className="border border-gray-100">
               <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <FileText />
               </div>
-              <h5 className="font-semibold">Documentation and Verification</h5>
+              <h5 className="text-lg font-semibold text-gray-900">Documentation and Verification</h5>
               <p className="text-gray-600 text-sm">We assist you with document submission.</p>
             </Card>
             <Card className="border border-gray-100">
               <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <BadgeCheck />
               </div>
-              <h5 className="font-semibold">Approval</h5>
+              <h5 className="text-lg font-semibold text-gray-900">Approval</h5>
               <p className="text-gray-600 text-sm">Your loan is sanctioned.</p>
             </Card>
             <Card className="border border-gray-100">
               <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <ShieldCheck />
               </div>
-              <h5 className="font-semibold">Drive Away</h5>
+              <h5 className="text-lg font-semibold text-gray-900">Drive Away</h5>
               <p className="text-gray-600 text-sm">Receive amount and take your car.</p>
             </Card>
           </div>
@@ -166,48 +168,48 @@ const Benefits = () => {
       <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">Why Us</p>
-          <h2 className="text-2xl font-bold text-gray-800 mb-8">6 Reasons to Choose Us for Taking a Used Car Loan</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-8">6 Reasons to Choose Us for Taking a Used Car Loan</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card className="border border-gray-100">
               <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <FileText />
               </div>
-              <h5 className="font-semibold">Minimum paperwork</h5>
+              <h5 className="text-lg font-semibold text-gray-900">Minimum Paperwork</h5>
               <p className="text-gray-600 text-sm">We help you throughout documentation.</p>
             </Card>
             <Card className="border border-gray-100">
               <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <Clock />
               </div>
-              <h5 className="font-semibold">Repayment</h5>
+              <h5 className="text-lg font-semibold text-gray-900">Repayment</h5>
               <p className="text-gray-600 text-sm">We remind you to repay on time.</p>
             </Card>
             <Card className="border border-gray-100">
               <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <Coins />
               </div>
-              <h5 className="font-semibold">Competitive interest rates</h5>
+              <h5 className="text-lg font-semibold text-gray-900">Competitive Interest Rates</h5>
               <p className="text-gray-600 text-sm">We help select best rates.</p>
             </Card>
             <Card className="border border-gray-100">
               <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <BadgeCheck />
               </div>
-              <h5 className="font-semibold">High loan amount</h5>
+              <h5 className="text-lg font-semibold text-gray-900">High Loan Amount</h5>
               <p className="text-gray-600 text-sm">Get upto 95% of loan amount.</p>
             </Card>
             <Card className="border border-gray-100">
               <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <FileText />
               </div>
-              <h5 className="font-semibold">Minimum documents</h5>
+              <h5 className="text-lg font-semibold text-gray-900">Minimum Documents</h5>
               <p className="text-gray-600 text-sm">Minimal documentation for your request.</p>
             </Card>
             <Card className="border border-gray-100">
               <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <ShieldCheck />
               </div>
-              <h5 className="font-semibold">Instant online approval</h5>
+              <h5 className="text-lg font-semibold text-gray-900">Instant Online Approval</h5>
               <p className="text-gray-600 text-sm">We process your loan on your required time.</p>
             </Card>
           </div>
