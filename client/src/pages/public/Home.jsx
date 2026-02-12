@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import usePageMeta from '../../hooks/usePageMeta';
+import useSettings from '../../hooks/useSettings';
 import {
   Car,
   ClipboardList,
@@ -21,16 +22,28 @@ import {
 } from 'lucide-react';
 import {
   HERO_IMAGE,
-  LOAN_TYPES,
   LOAN_STEPS,
   LENDING_PARTNERS,
   TESTIMONIALS,
   COMPANY_METRICS,
   FAQS,
-  CONTACT_INFO,
 } from '../../constants/data';
 
 const Home = () => {
+  const { settings = {} } = useSettings();
+  
+  const primaryPhone = settings.primaryPhone || '+91 8660516762';
+  const alternatePhone = settings.alternatePhone || '+91 8197596707';
+  const loanTypes = settings.loanTypes || [
+    'New Car Loan',
+    'Used Car Loan',
+    'Auto Loan Top Up',
+    'Refinance',
+    'Balance Transfer',
+    'Personal Loan',
+    'Home Loan',
+  ];
+  
   usePageMeta({
     title: 'Car Loans & Sales | Home',
     description: 'Get quick approvals, low interest rates, and flexible repayment options for your car loan.',
@@ -160,7 +173,7 @@ const Home = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {LOAN_TYPES.map((loanType, index) => (
+            {loanTypes.map((loanType, index) => (
               <Card
                 key={index}
                 className="text-left border border-gray-100 hover:-translate-y-1 transition-transform"
@@ -267,7 +280,7 @@ const Home = () => {
       <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-primary text-center mb-8">
-            Give a missed call {CONTACT_INFO.phone} / {CONTACT_INFO.alternatePhone}
+            Give a missed call {primaryPhone} / {alternatePhone}
           </h2>
           <h3 className="text-2xl font-semibold mb-4">FAQ's?</h3>
           <Accordion items={FAQS} />

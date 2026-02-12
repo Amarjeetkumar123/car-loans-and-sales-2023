@@ -1,13 +1,16 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getLeads, bulkUpdateLeads } from '../../services/leadService';
-import { LEAD_STATUSES, LOAN_TYPES } from '../../constants/data';
+import { LEAD_STATUSES } from '../../constants/data';
+import useSettings from '../../hooks/useSettings';
 import Button from '../../components/common/Button';
 import toast from 'react-hot-toast';
 import Skeleton from '../../components/common/Skeleton';
 import { Users, Filter, Download, CheckSquare } from 'lucide-react';
 
 const Leads = () => {
+  const { settings } = useSettings();
+  const LOAN_TYPES = settings.loanTypes || [];
   const [leads, setLeads] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);

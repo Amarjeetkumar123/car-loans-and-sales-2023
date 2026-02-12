@@ -8,10 +8,11 @@ import Input from '../../components/common/Input';
 import Select from '../../components/common/Select';
 import Textarea from '../../components/common/Textarea';
 import Button from '../../components/common/Button';
-import { LOAN_TYPES, INDIAN_STATES } from '../../constants/data';
+import { INDIAN_STATES } from '../../constants/data';
 import { createLead } from '../../services/leadService';
 import { FileText, User, MapPin, MessageSquare } from 'lucide-react';
 import usePageMeta from '../../hooks/usePageMeta';
+import useSettings from '../../hooks/useSettings';
 
 const formSchema = z.object({
   firstName: z.string().min(2, 'First name must be at least 2 characters'),
@@ -26,6 +27,17 @@ const formSchema = z.object({
 });
 
 const ApplyNow = () => {
+  const { settings = {} } = useSettings();
+  const LOAN_TYPES = settings.loanTypes || [
+    'New Car Loan',
+    'Used Car Loan',
+    'Auto Loan Top Up',
+    'Refinance',
+    'Balance Transfer',
+    'Personal Loan',
+    'Home Loan',
+  ];
+
   usePageMeta({
     title: 'Apply Now | Car Loans & Sales',
     description: 'Submit your car loan application with quick approvals and minimal documentation.',
