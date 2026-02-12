@@ -1,5 +1,30 @@
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const Admin = require('../models/Admin');
+
+const signAccessToken = (adminId) =>
+  jwt.sign({ id: adminId }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE,
+  });
+
+const signRefreshToken = (adminId) =>
+  jwt.sign({ id: adminId }, process.env.REFRESH_TOKEN_SECRET || process.env.JWT_SECRET, {
+    expiresIn: process.env.REFRESH_TOKEN_EXPIRE || '30d',
+  });
+
+const hashToken = (token) => crypto.createHash('sha256').update(token).digest('hex');
+
+const parseExpiresToDate = (value) => {
+  if (!value) return new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+  if (typeof value === 'number') return new Date(Date.now() + value * 1000);
+  const str = String(value).trim();
+  const match = str.match(/^(\d+)([smhd])$/i);
+  if (!match) return new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+  const amount = Number(match[1]);
+  const unit = match[2].toLowerCase();
+  const multipliers = { s: 1000, m: 60000, h: 3600000, d: 86400000 };
+  return new Date(Date.now() + amount * (multipliers[unit] || 86400000));
+};
 
 // @desc    Login admin
 // @route   POST /api/auth/login
@@ -44,14 +69,18 @@ const login = async (req, res) => {
       });
     }
 
-    // Create token
-    const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRE,
-    });
+    // Create tokens
+    const token = signAccessToken(admin._id);
+    const refreshToken = signRefreshToken(admin._id);
+
+    admin.refreshTokenHash = hashToken(refreshToken);
+    admin.refreshTokenExpiresAt = parseExpiresToDate(process.env.REFRESH_TOKEN_EXPIRE || '30d');
+    await admin.save();
 
     res.status(200).json({
       success: true,
       token,
+      refreshToken,
       admin: {
         id: admin._id,
         name: admin.name,
@@ -145,6 +174,72 @@ const getMe = async (req, res) => {
   }
 };
 
+// @desc    Refresh access token
+// @route   POST /api/auth/refresh
+// @access  Public
+const refresh = async (req, res) => {
+  try {
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) {
+      return res.status(400).json({
+        success: false,
+        message: 'Refresh token is required',
+      });
+    }
+
+    let decoded;
+    try {
+      decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET || process.env.JWT_SECRET);
+    } catch (error) {
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid refresh token',
+      });
+    }
+
+    const admin = await Admin.findById(decoded.id).select('+refreshTokenHash');
+    if (!admin || !admin.isActive) {
+      return res.status(401).json({
+        success: false,
+        message: 'Admin not found or inactive',
+      });
+    }
+
+    if (!admin.refreshTokenHash || admin.refreshTokenHash !== hashToken(refreshToken)) {
+      return res.status(401).json({
+        success: false,
+        message: 'Refresh token mismatch',
+      });
+    }
+
+    if (admin.refreshTokenExpiresAt && admin.refreshTokenExpiresAt < new Date()) {
+      return res.status(401).json({
+        success: false,
+        message: 'Refresh token expired',
+      });
+    }
+
+    const newAccessToken = signAccessToken(admin._id);
+    const newRefreshToken = signRefreshToken(admin._id);
+    admin.refreshTokenHash = hashToken(newRefreshToken);
+    admin.refreshTokenExpiresAt = parseExpiresToDate(process.env.REFRESH_TOKEN_EXPIRE || '30d');
+    await admin.save();
+
+    res.status(200).json({
+      success: true,
+      token: newAccessToken,
+      refreshToken: newRefreshToken,
+    });
+  } catch (error) {
+    console.error('Refresh token error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to refresh token',
+    });
+  }
+};
+
 // @desc    Change password for logged-in admin
 // @route   PATCH /api/auth/password
 // @access  Private
@@ -203,4 +298,5 @@ module.exports = {
   register,
   getMe,
   changePassword,
+  refresh,
 };

@@ -31,6 +31,15 @@ const adminSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    refreshTokenHash: {
+      type: String,
+      default: null,
+      select: false,
+    },
+    refreshTokenExpiresAt: {
+      type: Date,
+      default: null,
+    },
   },
   {
     timestamps: true,

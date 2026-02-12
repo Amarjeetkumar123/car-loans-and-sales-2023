@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }) => {
       } catch (error) {
         console.error('Auth check failed:', error);
         localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
         localStorage.removeItem('admin');
       }
     }
@@ -31,6 +32,9 @@ export const AuthProvider = ({ children }) => {
     try {
       const data = await loginService(credentials);
       localStorage.setItem('token', data.token);
+      if (data.refreshToken) {
+        localStorage.setItem('refreshToken', data.refreshToken);
+      }
       localStorage.setItem('admin', JSON.stringify(data.admin));
       setAdmin(data.admin);
       toast.success('Login successful!');
@@ -43,6 +47,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
     localStorage.removeItem('admin');
     setAdmin(null);
     toast.success('Logged out successfully');
