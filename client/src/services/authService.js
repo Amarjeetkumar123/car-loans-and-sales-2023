@@ -17,3 +17,8 @@ export const registerAdmin = async (adminData) => {
   const response = await api.post('/auth/register', adminData);
   return response.data;
 };
+
+export const changePassword = async (payload) => {
+  const response = await api.patch('/auth/password', payload);
+  return response.data;
+};

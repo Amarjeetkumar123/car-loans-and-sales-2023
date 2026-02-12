@@ -79,8 +79,10 @@ npm run start
 ## Admin Roles & Access
 
 Roles supported in the admin panel:
-- **super_admin**: Full access (manage admins, audit logs, email templates, lead bulk actions, deletions).
-- **admin**: Access to audit logs and email templates, lead bulk actions and deletions.
+- **super_admin**: Full access (manage users, audit logs, email templates, lead bulk actions, deletions).
+- **admin**: Lead management (including bulk updates and deletions), audit logs, and email templates.
+- **manager**: Lead management (including bulk updates), audit logs. Cannot delete leads or manage users.
+- **agent**: Lead management (view and update individual leads). Cannot access audit logs, email templates, bulk updates, or user management.
 
 The **default Super Admin** is created from these environment variables in `server/.env`:
 - `ADMIN_DEFAULT_EMAIL`

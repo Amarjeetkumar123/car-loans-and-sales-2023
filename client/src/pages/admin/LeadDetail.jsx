@@ -6,6 +6,7 @@ import { LEAD_STATUSES } from '../../constants/data';
 import Button from '../../components/common/Button';
 import toast from 'react-hot-toast';
 import Skeleton from '../../components/common/Skeleton';
+import useAuth from '../../hooks/useAuth';
 import { User, Mail, Phone, MapPin, ClipboardList, CalendarCheck, Clock4, BadgeCheck } from 'lucide-react';
 
 const LeadDetail = () => {
@@ -19,6 +20,8 @@ const LeadDetail = () => {
   const [assignedTo, setAssignedTo] = useState('');
   const [admins, setAdmins] = useState([]);
   const [saving, setSaving] = useState(false);
+  const { admin } = useAuth();
+  const canAssign = ['admin', 'manager', 'super_admin'].includes(admin?.role);
 
   const fetchAdmins = useCallback(async () => {
     try {
@@ -50,15 +53,17 @@ const LeadDetail = () => {
 
   useEffect(() => {
     fetchLead();
-    fetchAdmins();
-  }, [fetchLead, fetchAdmins]);
+    if (canAssign) {
+      fetchAdmins();
+    }
+  }, [fetchLead, fetchAdmins, canAssign]);
 
   const handleUpdate = async () => {
     setSaving(true);
     try {
       await updateLead(id, {
         status,
-        assignedTo: assignedTo || undefined,
+        assignedTo: canAssign ? assignedTo || undefined : undefined,
         note: note.trim() ? note : undefined,
         nextFollowUpAt: nextFollowUpAt || null,
       });
@@ -249,18 +254,27 @@ const LeadDetail = () => {
               <option key={s.value} value={s.value}>{s.label}</option>
             ))}
           </select>
-          <select
-            className="input-field"
-            value={assignedTo}
-            onChange={(e) => setAssignedTo(e.target.value)}
-          >
-            <option value="">Unassigned</option>
-            {admins.map((admin) => (
-              <option key={admin._id} value={admin._id}>
-                {admin.name} ({admin.email})
-              </option>
-            ))}
-          </select>
+          {canAssign ? (
+            <select
+              className="input-field"
+              value={assignedTo}
+              onChange={(e) => setAssignedTo(e.target.value)}
+            >
+              <option value="">Unassigned</option>
+              {admins.map((adminUser) => (
+                <option key={adminUser._id} value={adminUser._id}>
+                  {adminUser.name} ({adminUser.email})
+                </option>
+              ))}
+            </select>
+          ) : (
+            <input
+              type="text"
+              className="input-field"
+              value={lead.assignedTo?.name ? `${lead.assignedTo.name} (${lead.assignedTo.email})` : 'Unassigned'}
+              disabled
+            />
+          )}
           <input
             type="date"
             className="input-field"

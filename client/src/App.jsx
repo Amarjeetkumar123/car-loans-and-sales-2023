@@ -17,6 +17,8 @@ import Leads from './pages/admin/Leads';
 import LeadDetail from './pages/admin/LeadDetail';
 import AuditLogs from './pages/admin/AuditLogs';
 import EmailTemplates from './pages/admin/EmailTemplates';
+import ManageUsers from './pages/admin/ManageUsers';
+import ChangePassword from './pages/admin/ChangePassword';
 import AdminLayout from './components/admin/AdminLayout';
 import NotFound from './pages/NotFound';
 
@@ -47,6 +49,8 @@ function App() {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="leads" element={<Leads />} />
         <Route path="leads/:id" element={<LeadDetail />} />
+        <Route path="users" element={<ManageUsers />} />
+        <Route path="change-password" element={<ChangePassword />} />
         <Route path="audit-logs" element={<AuditLogs />} />
         <Route path="email-templates" element={<EmailTemplates />} />
       </Route>

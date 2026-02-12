@@ -1,7 +1,7 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { useState } from 'react';
-import { LayoutDashboard, Users, FileText, Mail, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Users, FileText, Mail, LogOut, Menu, X, UserCog, KeyRound } from 'lucide-react';
 
 const AdminLayout = () => {
   const { logout, admin } = useAuth();
@@ -34,7 +34,16 @@ const AdminLayout = () => {
             <Users className="h-4 w-4" />
             Leads
           </Link>
-          {(admin?.role === 'admin' || admin?.role === 'super_admin') && (
+          {admin?.role === 'super_admin' && (
+            <Link
+              to="/admin/users"
+              className={`flex items-center gap-3 px-4 py-2 rounded ${isActive('/admin/users') ? 'bg-primary text-white shadow' : 'text-gray-300 hover:bg-gray-700'}`}
+            >
+              <UserCog className="h-4 w-4" />
+              Manage Users
+            </Link>
+          )}
+          {(admin?.role === 'admin' || admin?.role === 'manager' || admin?.role === 'super_admin') && (
             <Link
               to="/admin/audit-logs"
               className={`flex items-center gap-3 px-4 py-2 rounded ${isActive('/admin/audit-logs') ? 'bg-primary text-white shadow' : 'text-gray-300 hover:bg-gray-700'}`}
@@ -102,7 +111,17 @@ const AdminLayout = () => {
                 <Users className="h-4 w-4" />
                 Leads
               </Link>
-              {(admin?.role === 'admin' || admin?.role === 'super_admin') && (
+              {admin?.role === 'super_admin' && (
+                <Link
+                  to="/admin/users"
+                  onClick={() => setMobileOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-2 rounded ${isActive('/admin/users') ? 'bg-primary text-white shadow' : 'text-gray-300 hover:bg-gray-700'}`}
+                >
+                  <UserCog className="h-4 w-4" />
+                  Manage Users
+                </Link>
+              )}
+              {(admin?.role === 'admin' || admin?.role === 'manager' || admin?.role === 'super_admin') && (
                 <Link
                   to="/admin/audit-logs"
                   onClick={() => setMobileOpen(false)}
@@ -150,6 +169,13 @@ const AdminLayout = () => {
             <h1 className="text-lg md:text-2xl font-bold text-gray-800">Admin Dashboard</h1>
           </div>
           <div className="flex items-center gap-3">
+            <Link
+              to="/admin/change-password"
+              className="hidden md:inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 hover:border-gray-300"
+            >
+              <KeyRound className="h-4 w-4" />
+              Change Password
+            </Link>
             <button
               onClick={logout}
               className="md:hidden btn-outline text-sm"

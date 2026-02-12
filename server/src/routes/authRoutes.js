@@ -1,6 +1,6 @@
 const express = require('express');
-const { login, register, getMe } = require('../controllers/authController');
-const { protect } = require('../middleware/auth');
+const { login, register, getMe, changePassword } = require('../controllers/authController');
+const { protect, authorizeRoles } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -8,7 +8,8 @@ const router = express.Router();
 router.post('/login', login);
 
 // Protected routes
-router.post('/register', protect, register); // Only logged-in admins can create new admins
+router.post('/register', protect, authorizeRoles('super_admin'), register); // Only super admins can create new admins
 router.get('/me', protect, getMe);
+router.patch('/password', protect, changePassword);
 
 module.exports = router;

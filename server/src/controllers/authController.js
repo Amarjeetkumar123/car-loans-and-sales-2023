@@ -145,8 +145,62 @@ const getMe = async (req, res) => {
   }
 };
 
+// @desc    Change password for logged-in admin
+// @route   PATCH /api/auth/password
+// @access  Private
+const changePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({
+        success: false,
+        message: 'Current and new password are required',
+      });
+    }
+
+    if (String(newPassword).length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: 'New password must be at least 6 characters',
+      });
+    }
+
+    const admin = await Admin.findById(req.admin.id).select('+password');
+    if (!admin) {
+      return res.status(404).json({
+        success: false,
+        message: 'Admin not found',
+      });
+    }
+
+    const isPasswordMatch = await admin.comparePassword(currentPassword);
+    if (!isPasswordMatch) {
+      return res.status(400).json({
+        success: false,
+        message: 'Current password is incorrect',
+      });
+    }
+
+    admin.password = newPassword;
+    await admin.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Password updated successfully',
+    });
+  } catch (error) {
+    console.error('Change password error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to update password',
+    });
+  }
+};
+
 module.exports = {
   login,
   register,
   getMe,
+  changePassword,
 };

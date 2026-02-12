@@ -244,6 +244,71 @@ City: {{city}}
 
 Login to admin dashboard to view full details and take action.`,
   },
+  {
+    name: 'adminWelcome',
+    subject: 'Your Admin Access - {{companyName}}',
+    htmlBody: `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Access</title>
+      </head>
+      <body style="margin:0;padding:0;background:#f8fafc;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;color:#111827;line-height:1.6;">
+        <div style="max-width:640px;margin:0 auto;padding:16px 12px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="padding:24px;background:linear-gradient(135deg,#0f172a,#334155);border-radius:18px 18px 0 0;color:#ffffff;">
+                <div style="font-size:22px;font-weight:800;">Welcome to {{companyName}}</div>
+                <div style="font-size:13px;opacity:0.9;margin-top:4px;">Your admin account is ready</div>
+              </td>
+            </tr>
+            <tr>
+              <td style="background:#ffffff;border-radius:0 0 18px 18px;padding:24px;border:1px solid #e5e7eb;border-top:none;">
+                <p style="margin:0 0 12px 0;font-size:15px;">Hi {{name}},</p>
+                <p style="margin:0 0 16px 0;font-size:14px;color:#374151;">An admin account has been created for you with the role <strong>{{role}}</strong>.</p>
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:14px;padding:14px;">
+                  <tr>
+                    <td style="font-size:14px;color:#111827;">
+                      <div style="margin-bottom:6px;"><strong>Login email:</strong> {{email}}</div>
+                      <div><strong>Temporary password:</strong> {{tempPassword}}</div>
+                    </td>
+                  </tr>
+                </table>
+                <div style="margin:16px 0 0 0;font-size:13px;color:#6b7280;">
+                  Please sign in and change your password immediately.
+                </div>
+                <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:16px;">
+                  <tr>
+                    <td style="background:#dc2626;border-radius:10px;">
+                      <a href="{{loginUrl}}" style="display:inline-block;padding:10px 16px;color:#ffffff;text-decoration:none;font-size:14px;font-weight:700;">Go to Admin Login</a>
+                    </td>
+                  </tr>
+                </table>
+                <div style="margin-top:14px;font-size:12px;color:#9ca3af;">If you did not expect this, contact support: {{supportEmail}}</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </body>
+      </html>
+    `,
+    textBody: `Welcome to {{companyName}}
+
+Hi {{name}},
+
+Your admin account has been created.
+Role: {{role}}
+
+Login email: {{email}}
+Temporary password: {{tempPassword}}
+
+Sign in and change your password immediately.
+Login: {{loginUrl}}
+
+Support: {{supportEmail}}`,
+  },
 ];
 
 module.exports = { defaultEmailTemplates };
