@@ -370,6 +370,55 @@ const deleteLead = async (req, res) => {
   }
 };
 
+// @desc    Bulk delete leads with filters
+// @route   DELETE /api/admin/leads/bulk
+// @access  Private - Super admin only
+const bulkDeleteLeads = async (req, res) => {
+  try {
+    const { ids = [] } = req.body;
+
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'No lead IDs provided',
+      });
+    }
+
+    // Find leads before deleting to log audit
+    const leadsToDelete = await Lead.find({ _id: { $in: ids } });
+
+    // Delete leads
+    const result = await Lead.deleteMany({ _id: { $in: ids } });
+
+    // Log audit for each deleted lead
+    for (const lead of leadsToDelete) {
+      await logAudit({
+        req,
+        action: 'lead_deleted',
+        entityId: lead._id,
+        metadata: {
+          name: `${lead.firstName} ${lead.lastName}`,
+          email: lead.email,
+          status: lead.status,
+          bulkDelete: true,
+        },
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: `${result.deletedCount} lead(s) deleted successfully`,
+      deletedCount: result.deletedCount,
+    });
+  } catch (error) {
+    console.error('Bulk delete leads error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to bulk delete leads',
+    });
+  }
+};
+
 // @desc    Get dashboard statistics
 // @route   GET /api/admin/stats
 // @access  Private
@@ -464,5 +513,6 @@ module.exports = {
   updateLead,
   bulkUpdateLeads,
   deleteLead,
+  bulkDeleteLeads,
   getStats,
 };
