@@ -89,6 +89,8 @@ const getLeads = async (req, res) => {
       loanType,
       search,
       followUp,
+      startDate,
+      endDate,
       page = 1,
       limit = 10,
       sortBy = '-createdAt',
@@ -129,6 +131,21 @@ const getLeads = async (req, res) => {
         query.nextFollowUpAt = { $gt: endOfToday };
       } else if (followUp === 'none') {
         query.nextFollowUpAt = null;
+      }
+    }
+
+    if (startDate || endDate) {
+      const start = startDate ? new Date(startDate) : null;
+      const end = endDate ? new Date(endDate) : null;
+
+      if (start && !Number.isNaN(start.getTime())) {
+        start.setHours(0, 0, 0, 0);
+        query.createdAt = { ...(query.createdAt || {}), $gte: start };
+      }
+
+      if (end && !Number.isNaN(end.getTime())) {
+        end.setHours(23, 59, 59, 999);
+        query.createdAt = { ...(query.createdAt || {}), $lte: end };
       }
     }
 

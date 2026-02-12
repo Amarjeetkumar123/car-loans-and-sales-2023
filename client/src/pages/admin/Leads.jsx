@@ -6,6 +6,7 @@ import useSettings from '../../hooks/useSettings';
 import useAuth from '../../hooks/useAuth';
 import Button from '../../components/common/Button';
 import ConfirmDialog from '../../components/common/ConfirmDialog';
+import PromptDialog from '../../components/common/PromptDialog';
 import toast from 'react-hot-toast';
 import Skeleton from '../../components/common/Skeleton';
 import { Users, Filter, Download, CheckSquare, Trash2 } from 'lucide-react';
@@ -19,6 +20,8 @@ const Leads = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [showExportDialog, setShowExportDialog] = useState(false);
+  const [exportFileName, setExportFileName] = useState('');
   const hasLoadedRef = useRef(false);
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(1);
@@ -30,8 +33,23 @@ const Leads = () => {
     status: '',
     loanType: '',
     followUp: '',
+    startDate: '',
+    endDate: '',
     sortBy: '-createdAt',
   });
+
+  const clearAllFilters = () => {
+    setFilters({
+      search: '',
+      status: '',
+      loanType: '',
+      followUp: '',
+      startDate: '',
+      endDate: '',
+      sortBy: '-createdAt',
+    });
+    setPage(1);
+  };
 
   const fetchLeads = useCallback(async () => {
     if (!hasLoadedRef.current) {
@@ -47,6 +65,8 @@ const Leads = () => {
         status: filters.status,
         loanType: filters.loanType,
         followUp: filters.followUp,
+        startDate: filters.startDate,
+        endDate: filters.endDate,
         sortBy: filters.sortBy,
       });
       setLeads(data.leads || []);
@@ -149,7 +169,7 @@ const Leads = () => {
     }
   };
 
-  const exportCsv = () => {
+  const exportCsv = (fileNameInput) => {
     if (leads.length === 0) {
       toast.error('No leads to export');
       return;
@@ -179,14 +199,31 @@ const Leads = () => {
       .map((row) => row.map((field) => `"${String(field).replace(/"/g, '""')}"`).join(','))
       .join('\n');
 
+    const safeName = fileNameInput?.trim();
+    const fileName = safeName ? `${safeName}.csv` : `leads-${Date.now()}.csv`;
+
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', `leads-${Date.now()}.csv`);
+    link.setAttribute('download', fileName);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const handleExportClick = () => {
+    if (leads.length === 0) {
+      toast.error('No leads to export');
+      return;
+    }
+    setShowExportDialog(true);
+  };
+
+  const confirmExport = () => {
+    exportCsv(exportFileName);
+    setShowExportDialog(false);
+    setExportFileName('');
   };
 
   if (loading) {
@@ -235,7 +272,7 @@ const Leads = () => {
             <div className="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-gray-600 shadow-sm">
               Total: <span className="font-semibold text-gray-900">{leads.length}</span>
             </div>
-            <Button variant="secondary" onClick={exportCsv}>
+            <Button variant="secondary" onClick={handleExportClick}>
               <span className="inline-flex items-center gap-2">
                 <Download className="h-4 w-4" /> Export CSV
               </span>
@@ -248,7 +285,7 @@ const Leads = () => {
           <div className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-4">
             <Filter className="h-4 w-4 text-primary" /> Filters
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
             <input
               type="text"
               placeholder="Search by name, email, phone"
@@ -302,9 +339,21 @@ const Leads = () => {
               <option value="-status">Status (Z-A)</option>
               <option value="nextFollowUpAt">Follow-up Date</option>
             </select>
+            <input
+              type="date"
+              className="input-field"
+              value={filters.startDate}
+              onChange={(e) => setFilters({ ...filters, startDate: e.target.value })}
+            />
+            <input
+              type="date"
+              className="input-field"
+              value={filters.endDate}
+              onChange={(e) => setFilters({ ...filters, endDate: e.target.value })}
+            />
           </div>
 
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-4 flex flex-wrap items-center gap-2">
             {LEAD_STATUSES.map((status) => (
               <button
                 key={status.value}
@@ -318,10 +367,16 @@ const Leads = () => {
               </button>
             ))}
             <button
-              className="px-3 py-1 rounded-full text-sm border text-gray-700 border-gray-200 hover:border-primary"
+              className="px-3 py-1 rounded-full text-sm border border-amber-200 bg-amber-50 text-amber-700 hover:border-amber-300 hover:bg-amber-100"
               onClick={() => setFilters({ ...filters, status: '' })}
             >
               Clear Status
+            </button>
+            <button
+              className="px-3 py-1 rounded-full text-sm border border-amber-200 bg-amber-50 text-amber-700 hover:border-amber-300 hover:bg-amber-100"
+              onClick={clearAllFilters}
+            >
+              Clear All Filters
             </button>
           </div>
         </div>
@@ -381,6 +436,22 @@ const Leads = () => {
           isLoading={isDeleting}
           onConfirm={confirmBulkDelete}
           onCancel={() => setShowDeleteDialog(false)}
+        />
+
+        <PromptDialog
+          isOpen={showExportDialog}
+          title="Export CSV"
+          message="Enter a file name (optional). If left blank, a default name will be used."
+          placeholder="e.g., leads-feb-2026"
+          value={exportFileName}
+          onChange={setExportFileName}
+          confirmText="Export"
+          cancelText="Cancel"
+          onConfirm={confirmExport}
+          onCancel={() => {
+            setShowExportDialog(false);
+            setExportFileName('');
+          }}
         />
 
         {/* Leads Table */}
