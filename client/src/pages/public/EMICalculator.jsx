@@ -101,9 +101,13 @@ const EMICalculator = () => {
         title="EMI Calculator"
         subtitle="Calculate your monthly EMI"
         className="bg-gradient-to-r from-primary to-red-700"
+        breadcrumbs={[
+          { label: 'Home', to: '/' },
+          { label: 'EMI Calculator' },
+        ]}
       />
 
-      <section className="py-16 px-4">
+      <section className="py-16 px-4 reveal" data-reveal>
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
           <Card className="border border-gray-100 shadow-xl lg:col-span-2">
             <div className="flex items-center justify-between mb-6">
