@@ -238,19 +238,6 @@ const updateLead = async (req, res) => {
 
     await lead.save();
 
-    // Send status update email if status changed
-    if (status && previousStatus !== status) {
-      await sendEmail({
-        to: lead.email,
-        template: 'statusUpdate',
-        data: {
-          name: `${lead.firstName} ${lead.lastName}`,
-          status: lead.status,
-          message: note || '',
-        },
-      });
-    }
-
     await logAudit({
       req,
       action: 'lead_updated',

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { CONTACT_INFO } from '../../constants/data';
+import { CONTACT_INFO, LOAN_TYPES } from '../../constants/data';
 
 const Footer = () => {
   return (
@@ -45,11 +45,9 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Services</h3>
             <ul className="space-y-2 text-gray-400">
-              <li>New Car Loan</li>
-              <li>Used Car Loan</li>
-              <li>Auto Loan Top Up</li>
-              <li>Refinance</li>
-              <li>Balance Transfer</li>
+              {LOAN_TYPES.map((type) => (
+                <li key={type}>{type}</li>
+              ))}
             </ul>
           </div>
 
